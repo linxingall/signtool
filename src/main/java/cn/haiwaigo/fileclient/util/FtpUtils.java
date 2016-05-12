@@ -197,7 +197,6 @@ public class FtpUtils {
             input = new FileInputStream(localFile);  
             ftpClient.storeFile(serverFile, input);  
             log.debug("put " + localFile);  
-            System.out.println("put " + localFile);
             input.close();  
             if (delFile) {  
                 (new File(localFile)).delete();  
@@ -379,6 +378,22 @@ public class FtpUtils {
             }  
         }  
     }  
+    
+    public static int listSize(String remotePath) throws FTPClientException {  
+        FTPClient ftpClient = null;  
+        try {  
+            ftpClient = getFTPClient();  
+            String[] listNames = ftpClient.listNames(remotePath);  
+            return listNames!=null?listNames.length:0;  
+        } catch (IOException e) {  
+            throw new FTPClientException("列出远程目录下所有的文件时出现异常", e);  
+        } finally {  
+            if (ftpClient != null) {  
+                disconnect(ftpClient); //断开连接  
+            }  
+        }  
+    }  
+    
     public static boolean createFile(String strFilePath, String strFileContent,String encoding) {  
 		 if(StringUtils.isEmpty(encoding)){
 				encoding = "UTF-8";
@@ -445,6 +460,31 @@ public class FtpUtils {
 	       } 
 
 	   } 
+	   /**  
+	     * 上传一个本地文件到远程指定文件  
+	     *   
+	     * @param serverFile 服务器端文件名(包括完整路径)  
+	     * @param localFile 本地文件名(包括完整路径)  
+	     * @param delFile 成功后是否删除文件  
+	     * @return 成功时，返回true，失败返回false  
+	     * @throws FTPClientException  
+	     */  
+	    public static boolean rename(String fromName, String toName) throws FTPClientException {  
+	        FTPClient ftpClient = null;  
+	        try {  
+	            ftpClient = getFTPClient();  
+	            ftpClient.rename(fromName, toName);
+	            return true;  
+	        } catch (FileNotFoundException e) {  
+	            throw new FTPClientException("local file not found.", e);  
+	        } catch (IOException e) {  
+	            throw new FTPClientException("Could not put file to server.", e);  
+	        } finally {  
+	            if (ftpClient != null) {  
+	                disconnect(ftpClient); //断开连接  
+	            }  
+	        }  
+	    } 
 //	    public static void main(String[] args) throws FTPClientException{  
 //	    	D:\\ftp上传\\
 //	    	/Users/xuan/Documents/YGJTProject/src/main/java/com/ygjt/oms/tran/util/1.txt

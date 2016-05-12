@@ -26,6 +26,10 @@ public class SystemConstant {
 	//字符编码
 	public final static String ENCODING = "UTF-8";
 	public static final String FTP_RECEIVE_PATH = PropertiesUtil.getValue("ftp.receive.path");//远程服务器接收地址
+	public static final String FTP_TEMP_PATH = PropertiesUtil.getValue("ftp.temp.path");//远程服务器临时地址
+	public static final String FTP_BACKUP_PATH = PropertiesUtil.getValue("ftp.backup.path");//远程服务器报文备份地址
+	public static final String FTP_ERROR_PATH = PropertiesUtil.getValue("ftp.error.path");//远程服务器错误报文保存地址
+	
 	public static final String LOCAL_RECEIVE_PATH = PropertiesUtil.getValue("local.receive.path");//本地保存地址
 	public static final String SPLIT_STR="##";//二维码分隔符
 	public static final String VERSION="1.0";

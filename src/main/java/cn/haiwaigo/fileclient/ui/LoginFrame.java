@@ -148,9 +148,9 @@ public class LoginFrame extends JFrame{
   }
   
   //获取用户编码框中的内容
-  public int getUserId(){
+  public String getUserId(){
     //获取输入框的内容
-    return Integer.parseInt(idField.getText());
+    return idField.getText();
   }
   //获取用户密码框中的内容
   public String getUserPwd(){

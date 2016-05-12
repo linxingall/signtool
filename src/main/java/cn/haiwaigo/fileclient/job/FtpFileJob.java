@@ -24,22 +24,28 @@ public class FtpFileJob {
 	
     public static  void excute(){
         logger.info("ftp获取报文定时启动");
-        //获取ftp文件
-        //循环处理
-        	//加签
-        	//ws发送
+        //获取ftp文件 
+        /**
+         * recv temp error backup
+         * 
+         * job1 根据temp数量N，每次从 recv拿， 如果temp数量等于N 就不拿，小于拿
+         * 
+         * job2 下载temp的到本地
+         * 
+         * job3 多线程发送，根据发送结果删除temp下的文件，如果发送失败，文件重命名_N,尝试N次后移入error
+         * 
+         * 
+         */
         String[] fileLists;
 		try {
-			fileLists = FtpUtils.listNames(SystemConstant.FTP_RECEIVE_PATH);
+			fileLists = FtpUtils.listNames(SystemConstant.FTP_TEMP_PATH);
 			if(fileLists!=null){
 				Arrays.sort(fileLists);
-				int num = fileLists.length>=100?100:fileLists.length;
-				for (int i = 0; i < num; i++) {
+				for (int i = 0; i < fileLists.length; i++) {
 					String str = fileLists[i];
 					String fileName=SystemConstant.LOCAL_RECEIVE_PATH+str.substring(str.lastIndexOf("/")+1);
-					//获取ftp服务器上文件到本地
 					try {
-						FtpUtils.get(str,fileName, true);
+						FtpUtils.get(str,fileName, false);
 					} catch (Exception e) {
 						logger.error("获取远程文件失败，远程文件名："+str, e);
 					}

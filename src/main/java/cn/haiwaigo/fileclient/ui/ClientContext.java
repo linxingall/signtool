@@ -8,6 +8,8 @@ import cn.haiwaigo.fileclient.context.Global;
 import cn.haiwaigo.fileclient.context.SystemConstant;
 import cn.haiwaigo.fileclient.exception.ServiceException;
 import cn.haiwaigo.fileclient.job.FtpFileJob;
+import cn.haiwaigo.fileclient.job.MoveFtpFileJob;
+import cn.haiwaigo.fileclient.job.SignJob;
 
 
 
@@ -50,7 +52,7 @@ public class ClientContext {
    */
   public void login(){
     try {
-      int id = loginFrame.getUserId();
+      String id = loginFrame.getUserId();
       String pwd = loginFrame.getUserPwd();
      //TODO 调用服务平台登录接口
       Global.globalMap.put(SystemConstant.FTPUSERNAME, "ftplinx");
@@ -62,12 +64,12 @@ public class ClientContext {
       
       //启动定时器
       FtpFileJob.getFileFromFtp();
-    }catch(NumberFormatException e){
-      loginFrame.showError("编号必须是数字");
+      SignJob.signTask();
+      MoveFtpFileJob.moveFtpFileToTemp();
 //    }catch(ServiceException e){
 //        loginFrame.showError(e.getMessage());
       }catch (Exception e) {
-      e.printStackTrace();
+    	  e.printStackTrace();
     }
   }
   /**

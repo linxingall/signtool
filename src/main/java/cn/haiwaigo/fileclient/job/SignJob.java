@@ -20,7 +20,7 @@ public class SignJob {
 
  private static Logger logger = Logger.getLogger(SignJob.class);
    // 第一种方法：设定指定任务task在指定时间time执行 schedule(TimerTask task, Date time)  
-   public static void getFileFromFtp() {  
+   public static void signTask() {  
        Timer timer = new Timer();  
        timer.schedule(new TimerTask() {  
            public void run() {  

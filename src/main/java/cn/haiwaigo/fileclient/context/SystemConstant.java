@@ -22,7 +22,7 @@ public class SystemConstant {
 	// 成功
 	public final static String SUCCESS = "success";
 	// 失败
-	public final static String FAILURE = "failure";
+	public final static String FAILURE = "failure"; 
 	//字符编码
 	public final static String ENCODING = "UTF-8";
 	public static final String FTP_RECEIVE_PATH = PropertiesUtil.getValue("ftp.receive.path");//远程服务器接收地址

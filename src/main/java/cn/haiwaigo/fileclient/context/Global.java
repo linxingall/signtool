@@ -11,5 +11,5 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Global {
 	public static ConcurrentHashMap<String, String> globalMap = new ConcurrentHashMap<String, String>();
-
+ 
 }

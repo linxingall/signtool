@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import org.apache.log4j.Logger;
 
+import cn.haiwaigo.fileclient.context.Global;
 import cn.haiwaigo.fileclient.context.SystemConstant;
 import cn.haiwaigo.fileclient.exception.FTPClientException;
 import cn.haiwaigo.fileclient.util.FtpUtils;
@@ -43,7 +44,7 @@ public class FtpFileJob {
 				Arrays.sort(fileLists);
 				for (int i = 0; i < fileLists.length; i++) {
 					String str = fileLists[i];
-					String fileName=SystemConstant.LOCAL_RECEIVE_PATH+str.substring(str.lastIndexOf("/")+1);
+					String fileName=SystemConstant.LOCAL_RECEIVE_PATH+Global.globalMap.get(SystemConstant.FTPUSERNAME)+str.substring(str.lastIndexOf("/")+1);
 					try {
 						FtpUtils.get(str,fileName, false);
 					} catch (Exception e) {

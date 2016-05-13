@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import cn.haiwaigo.fileclient.context.SystemConstant;
 import cn.haiwaigo.fileclient.util.FileUtils;
 import cn.haiwaigo.fileclient.util.SignUtil;
+import cn.haiwaigo.fileclient.util.WebserviceUtils;
 
 /**
  * 
@@ -30,9 +31,12 @@ public class SignJob {
    }  
     public static void excute(){
         logger.info("加签发送报文定时启动");
-        //循环处理
-        	//加签
-        	//ws发送
+        /**
+         * recv temp error backup
+         * job3 多线程发送，根据发送结果删除temp下的文件，如果发送失败，文件重命名_N,尝试N次后移入error
+         * 
+         * 
+         */
         File dir = new File(SystemConstant.LOCAL_RECEIVE_PATH);
 		File[] listF = dir.listFiles();
 		if(listF!=null && listF.length>0){
@@ -45,7 +49,7 @@ public class SignJob {
 					//加签
 					String newXml = SignUtil.sign(xmlStr);
 		        	//ws发送
-					//WebserviceUtils.put(newXml, SystemConstant.WEB_SERVICE_URL, SystemConstant.WEB_SERVICE_METHOD);
+					WebserviceUtils.put(newXml, SystemConstant.WEB_SERVICE_URL, SystemConstant.WEB_SERVICE_METHOD);
 					//listF[i].delete();
 				} catch (Exception e) {
 					logger.error("-----------单个处理加签报文失败，原因：", e);

@@ -1,12 +1,12 @@
 package cn.haiwaigo.fileclient.ui;
 
+import java.io.File;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import cn.haiwaigo.fileclient.Test;
 import cn.haiwaigo.fileclient.context.Global;
 import cn.haiwaigo.fileclient.context.SystemConstant;
-import cn.haiwaigo.fileclient.exception.ServiceException;
 import cn.haiwaigo.fileclient.job.FtpFileJob;
 import cn.haiwaigo.fileclient.job.MoveFtpFileJob;
 import cn.haiwaigo.fileclient.job.SignJob;
@@ -57,6 +57,7 @@ public class ClientContext {
      //TODO 调用服务平台登录接口
       Global.globalMap.put(SystemConstant.FTPUSERNAME, "ftplinx");
       Global.globalMap.put(SystemConstant.FTPPASSWD, "ftplinx");
+      Global.globalMap.put(SystemConstant.LOCAL_TEMP_PATH,SystemConstant.LOCAL_RECEIVE_PATH+"ftplinx"+File.separator);
       //将登录窗口隐藏
       loginFrame.setVisible(false);
       //将菜单窗口显示
